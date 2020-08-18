@@ -128,3 +128,6 @@ val dates = [test_date_1, test_date_2, test_date_3, test_date_4] *)
 
 val ans11_1 = oldest([]) = NONE
 val ans11_2 = oldest([test_date_1]) = SOME test_date_1
+val ans11_3 = oldest([(1,2,3),(5,2,3),(7,2,3),(3,2,3)]) = SOME (1,2,3)
+val ans11_4 = oldest([(5,5,2),(5,10,2),(5,2,2),(5,12,2)]) = SOME (5,2,2)
+val ans11_5 = oldest([(5,12,15),(5,12,10),(5,12,1)]) = SOME (5,12,1)

@@ -257,10 +257,10 @@ fun oldest (dates: (int*int*int) list) =
                     let
                         val oldest_from_tl = find_oldest(tl dates)
                     in
-                        (* `is_older` returns true if second date is older *)
+                        (* `is_older` returns true if first date is older *)
                         if is_older(hd dates, oldest_from_tl)
-                        then oldest_from_tl
-                        else hd dates
+                        then hd dates
+                        else oldest_from_tl
                     end
         in
             SOME(find_oldest(dates))
