@@ -38,19 +38,14 @@ fun is_older (d1: int*int*int, d2: int*int*int) =
 (* #2. Write a function number_in_month that takes a list of dates and a month (i.e., an int) and returns
 how many dates in the list are in the given month. *)
 fun number_in_month (dates: (int*int*int) list, month: int) =
-    let
-        fun check_month (inner_d: (int*int*int) list) =
-            if null inner_d
-            then [] (* TODO: how to return an option? *)
-            else
-                if month = #2 (hd inner_d)
-                then
-                    1 :: check_month(tl inner_d)
-                else
-                    check_month(tl inner_d)
-    in
-        length(check_month(dates))
-    end
+    if null dates
+    then 0
+    else
+        if month = #2 (hd dates)
+        then
+            1 + number_in_month(tl dates, month)
+        else
+            number_in_month(tl dates, month)
 
 
 
