@@ -41,7 +41,7 @@ fun number_in_month (dates: (int*int*int) list, month: int) =
     let
         fun check_month (inner_d: (int*int*int) list) =
             if null inner_d
-            then [] (* TODO: redo, bad style *)
+            then [] (* TODO: how to return an option? *)
             else
                 if month = #2 (hd inner_d)
                 then
@@ -52,27 +52,7 @@ fun number_in_month (dates: (int*int*int) list, month: int) =
         length(check_month(dates))
     end
 
-(* #2: Recursion + Options *)
-(* WIP *)
-(* fun number_in_month_options (dates: (int*int*int) list, month: int) =
-    let
-        fun check_month (inner_d: (int*int*int) list) =
-            if null inner_d
-            then NONE
-            else
-                let
-                    val check_tl = check_month(tl inner_d)
-                in
-                    if isSome check_tl andalso month = #2 (hd (valOf inner_d))
-                    then
-                        SOME(#2 (hd (valOf inner_d))) :: check_tl
-                    else
-                        NONE
-                end
 
-    in
-        check_month(dates)
-    end *)
 
 (* #3: take a list of dates and a list of months and returns the number of
 dates in the list of dates that are in any of the months in the list of
@@ -83,11 +63,6 @@ fun number_in_months (dates: (int*int*int) list, months: int list) =
             if null mths
             then []
             else number_in_month(dates, hd mths) :: innerfn(tl mths)
-
-        fun sum_list (xs: int list) = 
-            if null xs
-            then 0
-            else hd xs + sum_list(tl xs)
 
         fun sum_list_optional (xs: int list) = 
             if null xs
@@ -101,7 +76,6 @@ fun number_in_months (dates: (int*int*int) list, months: int list) =
                     else SOME(hd xs)
                 end
     in
-        (* sum_list(innerfn(months)) *)
         let
             val result = sum_list_optional(innerfn(months))
         in
@@ -116,7 +90,6 @@ fun number_in_months (dates: (int*int*int) list, months: int list) =
 (* #4: Write a function dates_in_month that takes a list of dates and a month (i.e., an int) and returns a
 list holding the dates from the argument list of dates that are in the month. The returned list should
 contain dates in the order they were originally given. *)
-(* test answer: [(2020, 3, 1), (2020, 3, 15)] *)
 fun dates_in_month (dates: (int*int*int) list, month: int) =
     let
         fun filterDate (date: int*int*int) =
@@ -203,11 +176,6 @@ fun number_before_reaching_sum(sum: int, numbers: int list) =
             let
                 val first_n_sum = acc + hd ns
             in
-                print("idx: " ^ Int.toString(idx));
-                print(", acc: " ^ Int.toString(acc));
-                print(", first_n_sum: " ^ Int.toString(first_n_sum));
-                print(", sum: " ^ Int.toString(sum) ^ "\n");
-
                 if first_n_sum >= sum
                 then idx - 1
                 else check_sum(first_n_sum, idx + 1, tl ns)
